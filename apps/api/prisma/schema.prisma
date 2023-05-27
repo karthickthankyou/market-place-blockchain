@@ -1,0 +1,62 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id        Int         @id @default(autoincrement())
+    wallet    String      @unique
+    name      String
+    contact   String
+    inventory Inventory[]
+
+    sold      Purchase[] @relation("UserToPurchasesAsSeller")
+    purchased Purchase[] @relation("UserToPurchasesAsBuyer")
+}
+
+model Product {
+    id          Int      @id @default(autoincrement())
+    name        String
+    description String
+    images      String[]
+
+    Inventory Inventory[]
+}
+
+model Inventory {
+    id        Int     @id @default(autoincrement())
+    ownerId   Int
+    productId Int
+    price     Float
+    quantity  Int
+    minOrder  Int
+    listed    Boolean
+
+    owner   User    @relation(fields: [ownerId], references: [id])
+    product Product @relation(fields: [productId], references: [id])
+
+    Purchase Purchase[]
+}
+
+model Purchase {
+    transactionHash String @id
+    buyerId         String
+    sellerId        String
+    inventoryId     Int
+    unitPrice       Int
+    quantity        Int
+    totalPrice      Int
+    timestamp       Int
+
+    buyer  User @relation("UserToPurchasesAsBuyer", fields: [buyerId], references: [wallet])
+    seller User @relation("UserToPurchasesAsSeller", fields: [sellerId], references: [wallet])
+
+    inventory Inventory @relation(fields: [inventoryId], references: [id])
+}
