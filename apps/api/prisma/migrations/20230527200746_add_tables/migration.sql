@@ -1,16 +1,15 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
     "wallet" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "contact" TEXT NOT NULL,
 
-    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "User_pkey" PRIMARY KEY ("wallet")
 );
 
 -- CreateTable
 CREATE TABLE "Product" (
-    "id" SERIAL NOT NULL,
+    "id" INTEGER NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "images" TEXT[],
@@ -20,13 +19,14 @@ CREATE TABLE "Product" (
 
 -- CreateTable
 CREATE TABLE "Inventory" (
-    "id" SERIAL NOT NULL,
-    "ownerId" INTEGER NOT NULL,
+    "id" INTEGER NOT NULL,
+    "ownerId" TEXT NOT NULL,
     "productId" INTEGER NOT NULL,
     "price" DOUBLE PRECISION NOT NULL,
     "quantity" INTEGER NOT NULL,
     "minOrder" INTEGER NOT NULL,
     "listed" BOOLEAN NOT NULL,
+    "purchaseTransactionHash" TEXT NOT NULL DEFAULT '',
 
     CONSTRAINT "Inventory_pkey" PRIMARY KEY ("id")
 );
@@ -36,7 +36,8 @@ CREATE TABLE "Purchase" (
     "transactionHash" TEXT NOT NULL,
     "buyerId" TEXT NOT NULL,
     "sellerId" TEXT NOT NULL,
-    "inventoryId" INTEGER NOT NULL,
+    "buyerInventoryId" INTEGER NOT NULL,
+    "sellerInventoryId" INTEGER NOT NULL,
     "unitPrice" INTEGER NOT NULL,
     "quantity" INTEGER NOT NULL,
     "totalPrice" INTEGER NOT NULL,
@@ -45,20 +46,17 @@ CREATE TABLE "Purchase" (
     CONSTRAINT "Purchase_pkey" PRIMARY KEY ("transactionHash")
 );
 
--- CreateIndex
-CREATE UNIQUE INDEX "User_wallet_key" ON "User"("wallet");
-
 -- AddForeignKey
-ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_ownerId_fkey" FOREIGN KEY ("ownerId") REFERENCES "User"("wallet") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_productId_fkey" FOREIGN KEY ("productId") REFERENCES "Product"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Inventory" ADD CONSTRAINT "Inventory_purchaseTransactionHash_fkey" FOREIGN KEY ("purchaseTransactionHash") REFERENCES "Purchase"("transactionHash") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_buyerId_fkey" FOREIGN KEY ("buyerId") REFERENCES "User"("wallet") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_sellerId_fkey" FOREIGN KEY ("sellerId") REFERENCES "User"("wallet") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Purchase" ADD CONSTRAINT "Purchase_inventoryId_fkey" FOREIGN KEY ("inventoryId") REFERENCES "Inventory"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

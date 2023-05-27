@@ -1,188 +1,8 @@
 export const abi = [
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_productId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_quantity',
-        type: 'uint256',
-      },
-    ],
-    name: 'buyProduct',
-    outputs: [],
-    stateMutability: 'payable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_productId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_price',
-        type: 'uint256',
-      },
-    ],
-    name: 'changeProductPrice',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: '_productId',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_quantity',
-        type: 'uint256',
-      },
-    ],
-    name: 'changeProductQuantity',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
     inputs: [],
     stateMutability: 'nonpayable',
     type: 'constructor',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'productId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'price',
-        type: 'uint256',
-      },
-    ],
-    name: 'ChangeProductPrice',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'productId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'quantity',
-        type: 'uint256',
-      },
-    ],
-    name: 'ChangeProductQuantity',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'description',
-        type: 'string',
-      },
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'data',
-        type: 'address',
-      },
-    ],
-    name: 'LogAddress',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'description',
-        type: 'string',
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'data',
-        type: 'string',
-      },
-    ],
-    name: 'LogString',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'description',
-        type: 'string',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'data',
-        type: 'uint256',
-      },
-    ],
-    name: 'LogUint256',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'owner',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'buyer',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'productId',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'quantity',
-        type: 'uint256',
-      },
-    ],
-    name: 'ProductPurchased',
-    type: 'event',
   },
   {
     anonymous: false,
@@ -201,15 +21,9 @@ export const abi = [
       },
       {
         indexed: false,
-        internalType: 'string',
-        name: 'name',
-        type: 'string',
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'description',
-        type: 'string',
+        internalType: 'uint256',
+        name: 'productId',
+        type: 'uint256',
       },
       {
         indexed: false,
@@ -225,13 +39,153 @@ export const abi = [
       },
       {
         indexed: false,
+        internalType: 'uint256',
+        name: 'minOrder',
+        type: 'uint256',
+      },
+    ],
+    name: 'InventoryCreated',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'seller',
+        type: 'address',
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'buyer',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'sellerInventoryId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'buyerInventoryId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'quantity',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'unitPrice',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'totalPrice',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256',
+      },
+    ],
+    name: 'ProductPurchased',
+    type: 'event',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'inventoryId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'name',
+        type: 'string',
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'description',
+        type: 'string',
+      },
+      {
+        indexed: false,
         internalType: 'string[]',
         name: 'images',
         type: 'string[]',
       },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'owner',
+        type: 'address',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'quantity',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'minOrder',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'bool',
+        name: 'listed',
+        type: 'bool',
+      },
     ],
     name: 'ProductRegistered',
     type: 'event',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_inventoryId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_quantity',
+        type: 'uint256',
+      },
+    ],
+    name: 'purchaseProduct',
+    outputs: [],
+    stateMutability: 'payable',
+    type: 'function',
   },
   {
     inputs: [
@@ -246,6 +200,11 @@ export const abi = [
         type: 'string',
       },
       {
+        internalType: 'string[]',
+        name: '_images',
+        type: 'string[]',
+      },
+      {
         internalType: 'uint256',
         name: '_price',
         type: 'uint256',
@@ -256,9 +215,14 @@ export const abi = [
         type: 'uint256',
       },
       {
-        internalType: 'string[]',
-        name: '_images',
-        type: 'string[]',
+        internalType: 'uint256',
+        name: '_minOrder',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: '_listed',
+        type: 'bool',
       },
     ],
     name: 'registerProduct',
@@ -283,6 +247,53 @@ export const abi = [
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function',
+  },
+  {
+    inputs: [
+      {
+        internalType: 'uint256',
+        name: '_inventoryId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_newQuantity',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_newPrice',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: '_newMinOrder',
+        type: 'uint256',
+      },
+    ],
+    name: 'updateInventory',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function',
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'inventoryId',
+        type: 'uint256',
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'quantity',
+        type: 'uint256',
+      },
+    ],
+    name: 'UpdateInventory',
+    type: 'event',
   },
   {
     anonymous: false,
@@ -310,24 +321,13 @@ export const abi = [
     type: 'event',
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: '_userAddress',
-        type: 'address',
-      },
-    ],
-    name: 'getUser',
+    inputs: [],
+    name: 'feePercent',
     outputs: [
       {
-        internalType: 'string',
+        internalType: 'uint256',
         name: '',
-        type: 'string',
-      },
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string',
+        type: 'uint256',
       },
     ],
     stateMutability: 'view',
@@ -336,49 +336,73 @@ export const abi = [
   {
     inputs: [
       {
-        internalType: 'address',
-        name: 'user',
-        type: 'address',
+        internalType: 'uint256',
+        name: '',
+        type: 'uint256',
       },
     ],
-    name: 'getUserProducts',
+    name: 'inventories',
     outputs: [
       {
-        components: [
-          {
-            internalType: 'string',
-            name: 'name',
-            type: 'string',
-          },
-          {
-            internalType: 'string',
-            name: 'description',
-            type: 'string',
-          },
-          {
-            internalType: 'uint256',
-            name: 'price',
-            type: 'uint256',
-          },
-          {
-            internalType: 'uint256',
-            name: 'quantity',
-            type: 'uint256',
-          },
-          {
-            internalType: 'string[]',
-            name: 'images',
-            type: 'string[]',
-          },
-          {
-            internalType: 'address payable',
-            name: 'owner',
-            type: 'address',
-          },
-        ],
-        internalType: 'struct SupplyChain.Product[]',
+        internalType: 'uint256',
+        name: 'id',
+        type: 'uint256',
+      },
+      {
+        internalType: 'address payable',
+        name: 'owner',
+        type: 'address',
+      },
+      {
+        internalType: 'uint256',
+        name: 'productId',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'price',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'quantity',
+        type: 'uint256',
+      },
+      {
+        internalType: 'uint256',
+        name: 'minOrder',
+        type: 'uint256',
+      },
+      {
+        internalType: 'bool',
+        name: 'listed',
+        type: 'bool',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'inventoryCounter',
+    outputs: [
+      {
+        internalType: 'uint256',
         name: '',
-        type: 'tuple[]',
+        type: 'uint256',
+      },
+    ],
+    stateMutability: 'view',
+    type: 'function',
+  },
+  {
+    inputs: [],
+    name: 'owner',
+    outputs: [
+      {
+        internalType: 'address payable',
+        name: '',
+        type: 'address',
       },
     ],
     stateMutability: 'view',
@@ -417,21 +441,6 @@ export const abi = [
         name: 'description',
         type: 'string',
       },
-      {
-        internalType: 'uint256',
-        name: 'price',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'quantity',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address payable',
-        name: 'owner',
-        type: 'address',
-      },
     ],
     stateMutability: 'view',
     type: 'function',
@@ -449,32 +458,12 @@ export const abi = [
         type: 'uint256',
       },
     ],
-    name: 'userProducts',
+    name: 'userInventories',
     outputs: [
       {
-        internalType: 'string',
-        name: 'name',
-        type: 'string',
-      },
-      {
-        internalType: 'string',
-        name: 'description',
-        type: 'string',
-      },
-      {
         internalType: 'uint256',
-        name: 'price',
+        name: '',
         type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: 'quantity',
-        type: 'uint256',
-      },
-      {
-        internalType: 'address payable',
-        name: 'owner',
-        type: 'address',
       },
     ],
     stateMutability: 'view',

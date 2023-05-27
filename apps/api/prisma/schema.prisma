@@ -11,8 +11,7 @@ datasource db {
 }
 
 model User {
-    id        Int         @id @default(autoincrement())
-    wallet    String      @unique
+    wallet    String      @id
     name      String
     contact   String
     inventory Inventory[]
@@ -22,7 +21,7 @@ model User {
 }
 
 model Product {
-    id          Int      @id @default(autoincrement())
+    id          Int      @id
     name        String
     description String
     images      String[]
@@ -31,32 +30,33 @@ model Product {
 }
 
 model Inventory {
-    id        Int     @id @default(autoincrement())
-    ownerId   Int
+    id        Int     @id
+    ownerId   String
     productId Int
     price     Float
     quantity  Int
     minOrder  Int
     listed    Boolean
 
-    owner   User    @relation(fields: [ownerId], references: [id])
+    owner   User    @relation(fields: [ownerId], references: [wallet])
     product Product @relation(fields: [productId], references: [id])
 
-    Purchase Purchase[]
+    purchases Purchase[]
 }
 
 model Purchase {
-    transactionHash String @id
-    buyerId         String
-    sellerId        String
-    inventoryId     Int
-    unitPrice       Int
-    quantity        Int
-    totalPrice      Int
-    timestamp       Int
+    transactionHash   String @id
+    buyerId           String
+    sellerId          String
+    buyerInventoryId  Int
+    sellerInventoryId Int
+    unitPrice         Int
+    quantity          Int
+    totalPrice        Int
+    timestamp         Int
 
     buyer  User @relation("UserToPurchasesAsBuyer", fields: [buyerId], references: [wallet])
     seller User @relation("UserToPurchasesAsSeller", fields: [sellerId], references: [wallet])
 
-    inventory Inventory @relation(fields: [inventoryId], references: [id])
+    Inventory Inventory[]
 }
