@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "@market-place-blockchain/web",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
     "tsc": "tsc"
   },
   "dependencies": {
+    "@market-place-blockchain/contract-info": "*",
     "@types/node": "20.2.5",
     "@types/react": "18.2.7",
     "@types/react-dom": "18.2.4",

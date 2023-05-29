@@ -1,0 +1,6 @@
+{
+  "name": "@market-place-blockchain/contract-info",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "./index.ts"
+}

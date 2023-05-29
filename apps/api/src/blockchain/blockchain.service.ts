@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common'
 import Web3 from 'web3'
 
 import { AbiItem } from 'web3-utils'
-import { abi } from 'src/util/abi'
+import {
+  contractAbi,
+  contractAddress,
+} from '@market-place-blockchain/contract-info'
 import { PrismaService } from 'src/common/prisma/prisma.service'
 import { MeilisearchService } from 'src/meilisearch/meilisearch.service'
 
@@ -16,10 +19,10 @@ export class BlockchainService {
     private readonly meili: MeilisearchService,
   ) {
     this.web3 = new Web3(process.env.WSS_URL)
-
+    console.log('contractAbi', contractAbi, contractAddress)
     this.contract = new this.web3.eth.Contract(
-      abi as AbiItem[],
-      process.env.CONTRACT_ADDRESS,
+      contractAbi as AbiItem[],
+      contractAddress,
     )
 
     this.eventUserRegistered()
@@ -168,8 +171,12 @@ export class BlockchainService {
             const purchase = await this.prisma.purchase.create({
               data: {
                 transactionHash: event.transactionHash,
-                buyerInventoryId: +buyerInventoryId,
-                sellerInventoryId: +sellerInventoryId,
+                Inventory: {
+                  connect: [
+                    { id: +buyerInventoryId },
+                    { id: +sellerInventoryId },
+                  ],
+                },
                 seller: { connect: { wallet: seller } },
                 buyer: { connect: { wallet: buyer } },
                 quantity: +quantity,

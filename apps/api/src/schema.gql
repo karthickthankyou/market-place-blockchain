@@ -1,0 +1,280 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Inventory {
+  id: Int!
+  ownerId: String!
+  productId: Int!
+  price: Int!
+  quantity: Int!
+  minOrder: Int!
+  listed: Boolean!
+  purchases: [Purchase!]!
+}
+
+type Purchase {
+  transactionHash: String!
+  buyerId: String!
+  sellerId: String!
+  unitPrice: Int!
+  quantity: Int!
+  totalPrice: Int!
+  timestamp: Int!
+}
+
+type Product {
+  id: Int!
+  name: String!
+  description: String!
+  images: [String!]!
+  inventory: [Inventory!]!
+}
+
+type User {
+  wallet: String!
+  name: String!
+  contact: String!
+  sold: [Purchase!]!
+  purchased: [Purchase!]!
+}
+
+type Query {
+  inventories(where: InventoryWhereInput, orderBy: [InventoryOrderByWithRelationInput!], cursor: InventoryWhereUniqueInput, take: Int, skip: Int, distinct: [InventoryScalarFieldEnum!]): [Inventory!]!
+  inventory(where: InventoryWhereUniqueInput): Inventory!
+  products(where: ProductWhereInput, orderBy: [ProductOrderByWithRelationInput!], cursor: ProductWhereUniqueInput, take: Int, skip: Int, distinct: [ProductScalarFieldEnum!]): [Product!]!
+  product(where: ProductWhereUniqueInput): Product!
+  purchases(where: PurchaseWhereInput, orderBy: [PurchaseOrderByWithRelationInput!], cursor: PurchaseWhereUniqueInput, take: Int, skip: Int, distinct: [PurchaseScalarFieldEnum!]): [Purchase!]!
+  purchase(where: PurchaseWhereUniqueInput): Purchase!
+  users(where: UserWhereInput, orderBy: [UserOrderByWithRelationInput!], cursor: UserWhereUniqueInput, take: Int, skip: Int, distinct: [UserScalarFieldEnum!]): [User!]!
+  user(where: UserWhereUniqueInput): User!
+}
+
+input InventoryWhereInput {
+  id: IntFilter
+  ownerId: StringFilter
+  productId: IntFilter
+  price: FloatFilter
+  quantity: IntFilter
+  minOrder: IntFilter
+  listed: BoolFilter
+  owner: UserRelationFilter
+  product: ProductRelationFilter
+  purchases: PurchaseListRelationFilter
+  AND: [InventoryWhereInput!]
+  OR: [InventoryWhereInput!]
+  NOT: [InventoryWhereInput!]
+}
+
+input IntFilter {
+  equals: Int
+  in: Int
+  notIn: Int
+  lt: Int
+  lte: Int
+  gt: Int
+  gte: Int
+  not: Int
+}
+
+input StringFilter {
+  equals: String
+  in: [String!]
+  notIn: [String!]
+  lt: String
+  lte: String
+  gt: String
+  gte: String
+  contains: String
+  startsWith: String
+  endsWith: String
+  not: String
+  mode: QueryMode
+}
+
+enum QueryMode {
+  default
+  insensitive
+}
+
+input FloatFilter {
+  equals: Float
+  in: Float
+  notIn: Float
+  lt: Float
+  lte: Float
+  gt: Float
+  gte: Float
+  not: Float
+}
+
+input BoolFilter {
+  equals: Boolean
+  not: Boolean
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+input UserWhereInput {
+  wallet: StringFilter
+  name: StringFilter
+  contact: StringFilter
+  inventory: InventoryListRelationFilter
+  sold: PurchaseListRelationFilter
+  purchased: PurchaseListRelationFilter
+  AND: [UserWhereInput!]
+  OR: [UserWhereInput!]
+  NOT: [UserWhereInput!]
+}
+
+input InventoryListRelationFilter {
+  every: InventoryWhereInput
+  some: InventoryWhereInput
+  none: InventoryWhereInput
+}
+
+input PurchaseListRelationFilter {
+  every: PurchaseWhereInput
+  some: PurchaseWhereInput
+  none: PurchaseWhereInput
+}
+
+input PurchaseWhereInput {
+  transactionHash: StringFilter
+  buyerId: StringFilter
+  sellerId: StringFilter
+  unitPrice: IntFilter
+  quantity: IntFilter
+  totalPrice: IntFilter
+  timestamp: IntFilter
+  buyer: UserRelationFilter
+  seller: UserRelationFilter
+  Inventory: InventoryListRelationFilter
+  AND: [PurchaseWhereInput!]
+  OR: [PurchaseWhereInput!]
+  NOT: [PurchaseWhereInput!]
+}
+
+input ProductRelationFilter {
+  is: ProductWhereInput
+  isNot: ProductWhereInput
+}
+
+input ProductWhereInput {
+  id: IntFilter
+  name: StringFilter
+  description: StringFilter
+  images: StringFilter
+  Inventory: InventoryListRelationFilter
+  AND: [ProductWhereInput!]
+  OR: [ProductWhereInput!]
+  NOT: [ProductWhereInput!]
+}
+
+input InventoryOrderByWithRelationInput {
+  id: SortOrder
+  ownerId: SortOrder
+  productId: SortOrder
+  price: SortOrder
+  quantity: SortOrder
+  minOrder: SortOrder
+  listed: SortOrder
+  owner: UserOrderByWithRelationInput
+  product: ProductOrderByWithRelationInput
+  purchases: PurchaseOrderByRelationAggregateInput
+}
+
+enum SortOrder {
+  asc
+  desc
+}
+
+input UserOrderByWithRelationInput {
+  wallet: SortOrder
+  name: SortOrder
+  contact: SortOrder
+  inventory: InventoryOrderByRelationAggregateInput
+  sold: PurchaseOrderByRelationAggregateInput
+  purchased: PurchaseOrderByRelationAggregateInput
+}
+
+input InventoryOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input PurchaseOrderByRelationAggregateInput {
+  _count: SortOrder
+}
+
+input ProductOrderByWithRelationInput {
+  id: SortOrder
+  name: SortOrder
+  description: SortOrder
+  images: SortOrder
+  Inventory: InventoryOrderByRelationAggregateInput
+}
+
+input InventoryWhereUniqueInput {
+  id: Int
+}
+
+enum InventoryScalarFieldEnum {
+  id
+  ownerId
+  productId
+  price
+  quantity
+  minOrder
+  listed
+}
+
+input ProductWhereUniqueInput {
+  id: Int
+}
+
+enum ProductScalarFieldEnum {
+  id
+  name
+  description
+  images
+}
+
+input PurchaseOrderByWithRelationInput {
+  transactionHash: SortOrder
+  buyerId: SortOrder
+  sellerId: SortOrder
+  unitPrice: SortOrder
+  quantity: SortOrder
+  totalPrice: SortOrder
+  timestamp: SortOrder
+  buyer: UserOrderByWithRelationInput
+  seller: UserOrderByWithRelationInput
+  Inventory: InventoryOrderByRelationAggregateInput
+}
+
+input PurchaseWhereUniqueInput {
+  transactionHash: StringFilter
+}
+
+enum PurchaseScalarFieldEnum {
+  transactionHash
+  buyerId
+  sellerId
+  unitPrice
+  quantity
+  totalPrice
+  timestamp
+}
+
+input UserWhereUniqueInput {
+  wallet: StringFilter
+}
+
+enum UserScalarFieldEnum {
+  wallet
+  name
+  contact
+}
